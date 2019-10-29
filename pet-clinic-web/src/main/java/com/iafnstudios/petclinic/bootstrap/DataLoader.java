@@ -1,14 +1,11 @@
 package com.iafnstudios.petclinic.bootstrap;
 
 import com.iafnstudios.petclinic.model.Owner;
-import com.iafnstudios.petclinic.model.Pet;
 import com.iafnstudios.petclinic.model.Vet;
 import com.iafnstudios.petclinic.service.OwnerService;
 import com.iafnstudios.petclinic.service.PetService;
 import com.iafnstudios.petclinic.service.VetService;
-import com.iafnstudios.petclinic.service.map.OwnerServiceMap;
-import com.iafnstudios.petclinic.service.map.PetServiceMap;
-import com.iafnstudios.petclinic.service.map.VetServiceMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -21,12 +18,13 @@ public class DataLoader implements CommandLineRunner {
     private final PetService petService;
     private final VetService vetService;
 
-
-    public DataLoader() {
-        ownerService = new OwnerServiceMap();
-        petService = new PetServiceMap();
-        vetService = new VetServiceMap();
+    @Autowired
+    public DataLoader(OwnerService ownerService, PetService petService, VetService vetService) {
+        this.ownerService = ownerService;
+        this.petService = petService;
+        this.vetService = vetService;
     }
+
 
     @Override
     public void run(String... args) throws Exception {
